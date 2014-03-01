@@ -51,7 +51,7 @@ EventEmitter.prototype.on = function(event, callback) {
  * @param {Object|Number|String|Boolean} data1, data2, dataN
  */
 
-EventEmitter.prototype.emit = function(event /*, data1, data2, dataN */) {
+EventEmitter.prototype.emit = function(event /*, data1, data2, dataN */ ) {
   var callbacks = [];
   var events = this.eventObjectize(event);
   for (var id in events) {
@@ -85,11 +85,13 @@ EventEmitter.prototype.eventObjectize = function(eventStr) {
     return args;
   }
 
-  var events = args.map(function(needle, index, arr) {
-    var ev = arr.slice(0, index);
+  var events = [];
+
+  for (var i in args) {
+    var ev = args.slice(0, i);
     ev.push('*');
-    return ev.join('.');
-  });
+    events.push(ev.join('.'));
+  }
 
   if (args[args.length - 1] !== '*') {
     events.push(eventStr);
