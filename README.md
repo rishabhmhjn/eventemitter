@@ -15,14 +15,14 @@ TODO: add bower link
 - bower ([installation manual](https://github.com/bower/bower#installing-bower))
 
 **Steps**
-- `git clone git@github.com:rishabhmhjn/eventemitter.git`
+- `git clone https://github.com/rishabhmhjn/eventemitter.git`
 - `cd eventemitter && bower install`
 - Open `examples/index.html`
 
 
 ### TODO
 - Add the following methods
-  - [ ] `off`
-  - [ ] `once`
-  - [ ] `removeAllListeners`
-- [ ] Add to @bower
+  - `off`
+  - `once`
+  - `removeAllListeners`
+- Add to @bower
