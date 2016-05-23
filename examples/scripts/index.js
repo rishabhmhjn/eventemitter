@@ -111,7 +111,7 @@
           $('<a>')
           .attr({
             href: repo.html_url,
-            target: "_blank"
+            target: '_blank'
           })
           .text(repo.name)
       )
@@ -145,7 +145,7 @@
     var collabHTMLs = collabs.map(function(collab) {
       var $collab = $('<a>').attr({
         href: collab.html_url,
-        target: "_blank"
+        target: '_blank'
       }).text(collab.login);
       return $collab.get(0).outerHTML;
     });
@@ -159,7 +159,7 @@
   emitter.on('data.branches.*', renderBranches);
   emitter.on('data.collaborators.*', renderCollaborators);
 
-  $("#gh-form").submit(function(event) {
+  $('#gh-form').submit(function(event) {
     ghAlert();
     loadRepos($('#input-gh-username').val());
     event.preventDefault();
