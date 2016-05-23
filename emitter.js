@@ -43,6 +43,52 @@
   };
 
   /**
+   * UnSubscribe from an event
+   *
+   * @param {String} event
+   * @param {Function} callback
+   */
+
+  EventEmitter.prototype.off = function(event, callback) {
+    if (!this._callbacks || !this._callbacks[event]) {
+      return;
+    }
+
+    var index = this._callbacks[event].indexOf(callback);
+    if (index > -1) {
+      this._callbacks[event].splice(index, 1);
+    }
+
+    return this;
+  };
+
+  /**
+   * Delete all subscribers to an event
+   *
+   * @param {String} event
+   */
+  EventEmitter.prototype.destroy = function(event) {
+    if (this._callbacks && this._callbacks[event]) {
+      delete this._callbacks[event];
+    }
+
+    return this;
+  };
+
+  /**
+   * Delete all subscribers
+   *
+   * @param {String} event
+   */
+  EventEmitter.prototype.destroyAll = function() {
+    if (this._callbacks) {
+      delete this._callbacks;
+    }
+
+    return this;
+  };
+
+  /**
    * Emit an event
    *
    * Callbacks that meet the event name

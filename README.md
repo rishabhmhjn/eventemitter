@@ -22,7 +22,7 @@ TODO: add bower link
 
 ### TODO
 - Add the following methods
-  - `off`
+  - `off` [`✔`]
   - `once`
-  - `removeAllListeners`
+  - `removeAllListeners` [`✔`]
 - Add to @bower
