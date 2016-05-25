@@ -27,7 +27,17 @@
    *    // print: data.branch Object {bid: 1}
    */
 
-  function EventEmitter() {}
+  function EventEmitter() {
+    this.reset();
+  }
+
+  EventEmitter.prototype.on = on;
+  EventEmitter.prototype.off = off;
+  EventEmitter.prototype.emit = emit;
+  EventEmitter.prototype.destroy = destroy;
+  EventEmitter.prototype.destroyAll = EventEmitter.prototype.reset = destroyAll;
+
+  return EventEmitter;
 
   /**
    * Subscribe to an event
@@ -36,8 +46,7 @@
    * @param {Function} callback
    */
 
-  EventEmitter.prototype.on = function(event, callback) {
-    this._callbacks = this._callbacks || {};
+  function on(event, callback) {
     (this._callbacks[event] = this._callbacks[event] || []).push(callback);
     return this;
   };
@@ -49,8 +58,8 @@
    * @param {Function} callback
    */
 
-  EventEmitter.prototype.off = function(event, callback) {
-    if (!this._callbacks || !this._callbacks[event]) {
+  function off(event, callback) {
+    if (!this._callbacks[event]) {
       return;
     }
 
@@ -67,8 +76,8 @@
    *
    * @param {String} event
    */
-  EventEmitter.prototype.destroy = function(event) {
-    if (this._callbacks && this._callbacks[event]) {
+  function destroy(event) {
+    if (this._callbacks[event]) {
       delete this._callbacks[event];
     }
 
@@ -80,11 +89,8 @@
    *
    * @param {String} event
    */
-  EventEmitter.prototype.destroyAll = function() {
-    if (this._callbacks) {
-      delete this._callbacks;
-    }
-
+  function destroyAll() {
+    this._callbacks = {};
     return this;
   };
 
@@ -104,7 +110,7 @@
    * @param {Object|Number|String|Boolean} data1, data2, dataN
    */
 
-  EventEmitter.prototype.emit = function(event /*, data1, data2, dataN */ ) {
+  function emit(event /*, data1, data2, dataN */ ) {
     var callbacks = [];
     var events = eventObjectize(event);
     for (var id in events) {
@@ -152,5 +158,4 @@
     return events;
   };
 
-  return EventEmitter;
 }));
