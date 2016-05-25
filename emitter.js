@@ -112,7 +112,7 @@
 
   function emit(event /*, data1, data2, dataN */ ) {
     var callbacks = [];
-    var events = eventObjectize(event);
+    var events = extractEvents(event);
     for (var id in events) {
       callbacks = callbacks.concat(this._callbacks[events[id]] || []);
     }
@@ -132,7 +132,7 @@
    * @param {String} event
    * @return {Array} events
    */
-  function eventObjectize(eventStr) {
+  function extractEvents(eventStr) {
 
     if (eventStr.charAt(eventStr.length - 1) === '.') {
       eventStr = eventStr.substring(0, eventStr.length - 1);
@@ -141,6 +141,10 @@
     var args = eventStr.split('.');
 
     if (args.length == 1) {
+      if (args[0] === '*') {
+        return args;
+      }
+      args.push('*');
       return args;
     }
 
